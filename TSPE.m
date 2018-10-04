@@ -5,7 +5,6 @@ function [CMres, DMres] = TSPE(sdf, d, neg_wins, co_wins, pos_wins, FLAG_NORM)
 %   neg_wins    - Windows for before and after area of interest (default [3, 4, 5, 6, 7, 8])
 %   co_wins     - Cross-over window size (default 0)
 %   pos_wins    - Sizes of area of interest (default [2, 3, 4, 5, 6])
-%   jitt        - Jitter-Window-Size (default 4)
 %   FLAG_NORM   - 0 - no usage of normalization (default)
 %               - 1 - usage of normalization
 %
@@ -146,7 +145,7 @@ end
     sumWin=permute(sumWin, [1 3 2]);
     [~,index] = max(abs(sumWin));
     CMres=zeros(NrC);
-    DMres=squeeze(index);
+    DMres=squeeze(index)-2;
     for i=1:size(sumWin,2)
         CMres(:,i)=sumWin(sub2ind(size(sumWin), index(1,1:size(sumWin,2),i), 1:size(sumWin,2), i * ones(1,size(sumWin,2)))    );
     end
